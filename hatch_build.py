@@ -7,6 +7,7 @@ from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 
 class CustomBuildHook(BuildHookInterface):
+    # pointless comment
     def initialize(self, version, build_data):
         if shutil.which("deno"):
             print("Building with deno...", flush=True)
