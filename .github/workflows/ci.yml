@@ -1,15 +1,6 @@
 name: CI
 on:
-  push:
-    branches:
-      - '**'
-    paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-  pull_request:
-    paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
+  workflow_dispatch:
 
 permissions:
   contents: read

@@ -1,0 +1,32 @@
+name: Lockfile Hell
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Generate lockfiles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Deno v2.x (latest)
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Generate deno lockfile
+        run: |
+          deno install --lock ./deno.lock
+      - uses: pnpm/action-setup@v4  # respects packageManager version in package.json
+      - name: Generate pnpm lockfile
+        run: |
+          pnpm install --lockfile-only
+      - name: Upload lockfiles
+        uses: actions/upload-artifact@v4
+        with:
+          name: lockfiles
+          path: |
+            deno.lock
+            pnpm-lock.yaml
+          compression-level: 0
