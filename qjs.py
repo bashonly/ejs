@@ -51,7 +51,7 @@ for test in tests:
     ]
 
     # quickjs is quite slow so only test the yt-dlp default (or first) variant from each test
-    variants = test["variants"]
+    variants = test.get("variants") or ["main", "tv"]
     variant = (
         "tv" if "tv" in variants else "tv_tcl" if "tv_tcl" in variants else variants[0]
     )
