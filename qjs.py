@@ -67,16 +67,9 @@ for test in tests:
     }
     script_path.write_text(f"""\
         {lib_js}
-        function require(name) {{
-          const result = (lib?.lib ?? lib)[name];
-          if (!result) {{
-            throw `Missing library: ${{name}}`;
-          }}
-          return result;
-        }}
-        function structuredClone(x) {{ return JSON.parse(JSON.stringify(x)); }}
+        Object.assign(globalThis, lib);
         {core_js}
-        console.log(JSON.stringify(jsc.default({json.dumps(data)})));
+        console.log(JSON.stringify(jsc({json.dumps(data)})));
         """)
 
     try:
